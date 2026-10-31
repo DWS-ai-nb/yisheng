@@ -46,7 +46,11 @@ test "every Pingshui group is internally consistent" {
     let chars = @yisheng.group_chars(lex, @yisheng.Pingshui, group)
     let found = @yisheng.common_group(lex, @yisheng.Pingshui, chars, None)
     if found != Some(group) {
-      println("group mismatch: " + group + " -> " + found.to_string())
+      let shown = match found {
+        Some(g) => g
+        None => "<none>"
+      }
+      println("group mismatch: " + group + " -> " + shown)
     }
     assert_eq(found, Some(group))
   }

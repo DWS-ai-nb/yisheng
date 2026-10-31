@@ -49,6 +49,14 @@ jobs:
       - name: CLI lists tunes by keyword
         run: moon run cmd/main -- list 花 | grep -q 蝶恋花
 
+      - name: CLI rejects empty input with exit code 2
+        run: |
+          set +e
+          moon run cmd/main -- check --text ""
+          code=$?
+          set -e
+          test "$code" -eq 2
+
       - name: CLI rejects a broken poem with exit code 1
         run: |
           set +e

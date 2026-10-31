@@ -51,6 +51,10 @@ moon run cmd/main -- list 花        # 按关键词查词牌，现收 817 个
 
 完整输入、输出与验证方式见 [`docs/SCENARIOS.md`](docs/SCENARIOS.md)。
 
+## 退出码
+
+`0` 合律 · `1` 不合律 · `2` 用法或输入错误（文件读不到、词牌不存在、输入没有汉字、`--variant` 越界）。把 `check` 放进 CI 或审核流水线时，可直接按退出码分流。
+
 ## 库 API
 
 ```mbt

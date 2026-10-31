@@ -317,6 +317,15 @@ fn parse_shi_form(name : String) -> @yisheng.ShiForm? {
 }
 
 ///|
+fn han_count(text : String) -> Int32 {
+  let mut n = 0
+  for line in @yisheng.poem_lines(text) {
+    n = n + line.length()
+  }
+  n
+}
+
+///|
 fn cmd_check(lex : @yisheng.Lexicon, argv : Array[String]) -> Unit {
   match read_input(argv) {
     Err(msg) => {
@@ -324,6 +333,12 @@ fn cmd_check(lex : @yisheng.Lexicon, argv : Array[String]) -> Unit {
       @sys.exit(2)
     }
     Ok(text) => {
+      if han_count(text) == 0 {
+        println(
+          "输入中没有可判定的汉字，请检查文件内容或 --text 参数",
+        )
+        @sys.exit(2)
+      }
       let report = match find_flag(argv, "--ci") {
         Some(name) => @yisheng.check_ci(lex, text, Some(name))
         None =>
@@ -392,8 +407,19 @@ fn cmd_plan(lex : @yisheng.Lexicon, argv : Array[String]) -> Unit {
           let variant = match find_flag(argv, "--variant") {
             Some(v) =>
               match @yisheng.parse_int_opt(v) {
-                Some(n) => n
-                None => 0
+                Some(n) =>
+                  if n < 0 || n > 3 {
+                    println("--variant 只接受 0-3，收到：" + v)
+                    @sys.exit(2)
+                    0
+                  } else {
+                    n
+                  }
+                None => {
+                  println("--variant 需要 0-3 的整数，收到：" + v)
+                  @sys.exit(2)
+                  0
+                }
               }
             None => 0
           }
@@ -532,6 +558,12 @@ fn cmd_identify(lex : @yisheng.Lexicon, argv : Array[String]) -> Unit {
       @sys.exit(2)
     }
     Ok(text) => {
+      if han_count(text) == 0 {
+        println(
+          "输入中没有可判定的汉字，请检查文件内容或 --text 参数",
+        )
+        @sys.exit(2)
+      }
       if looks_like_shi(text) {
         let r = @yisheng.check_shi(lex, text, None)
         println("接近诗体：" + r.form + " · " + r.template)

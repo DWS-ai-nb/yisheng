@@ -1,0 +1,35 @@
+///|
+test "shi plan has the right line count and rhyme marks" {
+  let plan = @yisheng.plan_shi(@yisheng.QiLv, 0)
+  assert_eq(plan.lines.length(), 8)
+  let mut rhymes = 0
+  for l in plan.lines {
+    if l.contains("韵") {
+      rhymes = rhymes + 1
+    }
+  }
+  // 首句入韵 + 七个韵句中的其余五个（第 3、5、7 句为出句）。
+  assert_eq(rhymes, 5)
+}
+
+///|
+test "ci plan exposes all builtin formats" {
+  let lex = @yisheng.Lexicon::builtin()
+  let plans = @yisheng.plan_ci(lex, "如梦令")
+  assert_eq(plans.length(), 3)
+  assert_true(plans[0].lines[0].contains("韵"))
+}
+
+///|
+test "pingshui has 106 groups and a known rhyme" {
+  let lex = @yisheng.Lexicon::builtin()
+  assert_eq(@yisheng.group_names(lex, @yisheng.Pingshui).length(), 106)
+  let chars = @yisheng.group_chars(lex, @yisheng.Pingshui, "上平十灰")
+  let mut has_ai = false
+  for c in chars {
+    if c == '哀' {
+      has_ai = true
+    }
+  }
+  assert_true(has_ai)
+}

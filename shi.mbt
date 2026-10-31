@@ -285,9 +285,7 @@ fn analyze_line(
           Error,
           line_no,
           i + 1,
-          "第" +
-          (i + 1).to_string() +
-          "字应为" +
+          "应为" +
           tone_label(if expected == 'p' { Ping } else { Ze }) +
           "，实为" +
           tone_label(if tones[i] == 'p' { Ping } else { Ze }),

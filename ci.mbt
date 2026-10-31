@@ -243,9 +243,7 @@ fn report_ci(
                 Error,
                 li + 1,
                 k + 1,
-                "第" +
-                (k + 1).to_string() +
-                "字应为" +
+                "应为" +
                 (if p == 'p' { "平" } else { "仄" }) +
                 "，实为" +
                 (if chosen == 'p' { "平" } else { "仄" }),
@@ -345,8 +343,16 @@ fn report_ci(
         }
     }
   }
-  for note in rhyme_notes {
-    report.notes.push("用韵：" + note)
+  if rhyme_notes.length() > 0 {
+    let joined = StringBuilder()
+    for i in 0..<rhyme_notes.length() {
+      if i > 0 {
+        joined.write_string("；")
+      }
+      joined.write_string(rhyme_notes[i])
+    }
+    report.rhyme = joined.to_string()
+    report.notes.push("用韵：" + report.rhyme)
   }
   report.lines = views
   report.issues = issues

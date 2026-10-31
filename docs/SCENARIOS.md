@@ -104,7 +104,7 @@ moon run cmd/main -- identify examples/rumengling.txt
 
 ```bash
 moon test
-# Total tests: 28, passed: 28, failed: 0
+# Total tests: 30, passed: 30, failed: 0
 ```
 
 测试覆盖 15 首名篇、4 类错误、孤平/三平调、多音字、未知字、词牌识别、平仄谱与韵书查询。若数据表被改动，`moon test` 会立刻暴露回归。

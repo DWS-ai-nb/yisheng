@@ -1,0 +1,138 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "DWS-ai-nb/yisheng"
+
+// Values
+pub fn builtin_tune_names(Lexicon) -> Array[String]
+
+pub fn chars_of(String) -> Array[Char]
+
+pub fn check_ci(Lexicon, String, String?) -> Report
+
+pub fn check_shi(Lexicon, String, ShiForm?) -> Report
+
+pub fn common_group(Lexicon, RhymeSystem, Array[Char], Bool?) -> String?
+
+pub fn empty_report() -> Report
+
+pub fn form_names() -> Array[String]
+
+pub fn group_chars(Lexicon, RhymeSystem, String) -> Array[Char]
+
+pub fn group_names(Lexicon, RhymeSystem) -> Array[String]
+
+pub fn groups_of(Lexicon, RhymeSystem, Char) -> Array[String]
+
+pub fn identify_ci(Lexicon, String) -> Array[(String, Int32, String)]
+
+pub fn is_han(Char) -> Bool
+
+pub fn is_ping(Tone) -> Bool
+
+pub fn lookup(Lexicon, RhymeSystem, Char) -> Array[Reading]
+
+pub fn parse_int_opt(String) -> Int32?
+
+pub fn plan_ci(Lexicon, String) -> Array[Plan]
+
+pub fn plan_shi(ShiForm, Int32) -> Plan
+
+pub fn poem_lines(String) -> Array[String]
+
+pub fn repeat_char(Char, Int32) -> String
+
+pub fn severity_label(Severity) -> String
+
+pub fn shi_form_label(ShiForm) -> String
+
+pub fn string_of_chars(Array[Char]) -> String
+
+pub fn tone_code(Tone) -> Char
+
+pub fn tone_label(Tone) -> String
+
+// Errors
+
+// Types and methods
+pub struct CiTune {
+  name : String
+  sketch : String
+  author : String
+  pattern : String
+  rhymes : Array[Int32]
+}
+
+pub struct Issue {
+  code : String
+  severity : Severity
+  line : Int32
+  col : Int32
+  message : String
+  expected : String
+  actual : String
+}
+
+pub struct Lexicon {
+  pingshui : Map[Char, Array[Reading]]
+  cilin : Map[Char, Array[Reading]]
+  pingshui_groups : Map[String, Array[Char]]
+  cilin_groups : Map[String, Array[Char]]
+  pingshui_names : Array[String]
+  cilin_names : Array[String]
+  tunes : Array[CiTune]
+}
+pub fn Lexicon::builtin() -> Self
+
+pub struct LineView {
+  text : String
+  pattern : String
+  actual : String
+  bad_cols : Array[Int32]
+}
+
+pub struct Plan {
+  title : String
+  lines : Array[String]
+}
+
+pub struct Reading {
+  tone : Tone
+  group : String
+  tone_class : String
+}
+
+pub struct Report {
+  mut ok : Bool
+  mut form : String
+  mut lines : Array[LineView]
+  mut issues : Array[Issue]
+  notes : Array[String]
+  mut rhyme : String
+  mut template : String
+}
+
+pub(all) enum RhymeSystem {
+  Pingshui
+  Cilin
+}
+
+pub(all) enum Severity {
+  Error
+  Warning
+  Info
+}
+
+pub(all) enum ShiForm {
+  WuJue
+  QiJue
+  WuLv
+  QiLv
+}
+
+pub(all) enum Tone {
+  Ping
+  Ze
+}
+
+// Type aliases
+
+// Traits

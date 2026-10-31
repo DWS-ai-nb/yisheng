@@ -426,6 +426,20 @@ fn check_rhyme(
     None => {
       let first = rhyme_chars[0]
       let first_groups = groups_of(lex, Pingshui, first)
+      if first_groups.length() == 0 {
+        issues.push(
+          make_issue(
+            "RHYME_MISMATCH",
+            Error,
+            rhyme_lines[0] + 1,
+            lines[rhyme_lines[0]].to_array().length(),
+            "首句韵脚不在平水韵表中，无法确定韵部",
+            "平水韵平声韵部",
+            "未知",
+          ),
+        )
+        return ""
+      }
       for k in 1..<rhyme_chars.length() {
         let ch = rhyme_chars[k]
         let gs = groups_of(lex, Pingshui, ch)

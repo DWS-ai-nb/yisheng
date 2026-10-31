@@ -191,3 +191,18 @@ test "polyphonic lookup keeps both readings" {
   }
   assert_true(ping && ze)
 }
+
+///|
+test "unknown first rhyme does not crash" {
+  let lex = @yisheng.Lexicon::builtin()
+  let text = "朝辞白帝彩云龘，千里江陵一日还。两岸猿声啼不住，轻舟已过万重天。"
+  let r = @yisheng.check_shi(lex, text, None)
+  assert_false(r.ok)
+  let mut warned = false
+  for i in r.issues {
+    if i.code == "UNKNOWN_CHAR" {
+      warned = true
+    }
+  }
+  assert_true(warned)
+}

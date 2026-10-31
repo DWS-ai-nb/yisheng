@@ -1,6 +1,6 @@
 ///|
 /// yisheng command line: check / plan / rhyme / identify / list.
-const VERSION : String = "0.2.1"
+const VERSION : String = "0.2.3"
 
 ///|
 fn usage() -> Unit {

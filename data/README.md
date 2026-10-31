@@ -4,7 +4,7 @@
 
 - <https://github.com/charlesix59/chinese_word_rhyme>
 - 固定提交：`ff0e9c13fb037c43e0eaa5dc929c0fe4fa2ffb18`
-- 许可证：MIT，Copyright (c) 2023 Charles 闵
+- 许可证：MIT；完整版权声明与许可文本见仓库根目录 `NOTICE`。
 - 上游原始文件：`Pingshui_Rhyme.json`、`Cilin_Rhyme.json`、`Ci_Tunes.json`
 
 上游 19 MB 的 `Ci_Tunes.json` 不随仓库分发；脚本会下载到 `.cache/`（已在 `.gitignore` 中忽略），只提交精简后的表。

@@ -38,3 +38,16 @@ test "poem lines split on punctuation and newlines" {
   assert_eq(lines[0], "床前明月光")
   assert_eq(lines[1], "疑是地上霜")
 }
+
+///|
+test "every Pingshui group is internally consistent" {
+  let lex = @yisheng.Lexicon::builtin()
+  for group in @yisheng.group_names(lex, @yisheng.Pingshui) {
+    let chars = @yisheng.group_chars(lex, @yisheng.Pingshui, group)
+    let found = @yisheng.common_group(lex, @yisheng.Pingshui, chars, None)
+    if found != Some(group) {
+      println("group mismatch: " + group + " -> " + found.to_string())
+    }
+    assert_eq(found, Some(group))
+  }
+}

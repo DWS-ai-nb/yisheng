@@ -33,3 +33,18 @@ test "pingshui has 106 groups and a known rhyme" {
   }
   assert_true(has_ai)
 }
+
+///|
+test "every builtin ci format is well formed" {
+  let lex = @yisheng.Lexicon::builtin()
+  for t in lex.tunes {
+    assert_true(t.pattern.length() > 0)
+    for c in t.pattern {
+      assert_true(c == 'p' || c == 'z' || c == 'a')
+    }
+    for idx in t.rhymes {
+      assert_true(idx >= 0 && idx < t.pattern.length())
+    }
+    assert_true(t.rhymes.length() > 0)
+  }
+}

@@ -22,7 +22,7 @@
 
 ```bash
 moon check
-moon test          # 25 个测试，覆盖名篇、拗句、错韵、错字、词牌识别
+moon test          # 27 个测试，覆盖名篇、拗句、错韵、错字、词牌识别
 moon run cmd/main -- check examples/denggao.txt
 moon run cmd/main -- check examples/rumengling.txt --ci 如梦令
 moon run cmd/main -- check examples/broken_tone.txt --json
@@ -93,7 +93,7 @@ let chars = @yisheng.group_chars(lex, @yisheng.Pingshui, "上平十灰")
 moon test
 ```
 
-25 个测试，包括：
+27 个测试，包括：
 
 - 15 首名篇必须通过：杜甫《登高》《春望》《蜀相》、李白《早发白帝城》《独坐敬亭山》、王之涣《登鹳雀楼》、杜牧《山行》、李商隐《无题》、王维《山居秋暝》，以及李清照《如梦令》、白居易《忆江南》、晏殊《浣溪沙》、李煜《虞美人》、晏殊《蝶恋花》、苏轼《水调歌头》。
 - 错平仄、错韵、错字数、孤平、三平调必须被检出，且行列号正确。

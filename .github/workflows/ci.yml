@@ -20,6 +20,9 @@ jobs:
           moon version
           python3 --version
 
+      - name: Update registry and resolve dependencies
+        run: moon update
+
       - name: Check and test
         run: |
           moon check

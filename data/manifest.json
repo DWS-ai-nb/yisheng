@@ -1,0 +1,59 @@
+{
+  "source": "https://github.com/charlesix59/chinese_word_rhyme",
+  "commit": "ff0e9c13fb037c43e0eaa5dc929c0fe4fa2ffb18",
+  "license": "MIT (data); Apache-2.0 (code)",
+  "sha256_16": {
+    "Pingshui_Rhyme.json": "fd11164ca1b848eb",
+    "Cilin_Rhyme.json": "615736bb33a3c865",
+    "Ci_Tunes.json": "d99bc0280bd75424"
+  },
+  "counts": {
+    "pingshui_groups": 106,
+    "pingshui_chars": 10386,
+    "cilin_rows": 33,
+    "cilin_chars": 5403,
+    "ci_tunes": 78,
+    "ci_names": 27
+  },
+  "supplement": {
+    "pingshui:上声三讲": [
+      "讲",
+      "港",
+      "棒",
+      "蚌",
+      "项"
+    ],
+    "cilin:第十三部/平声": "沉",
+    "pingshui:上平八齐/下平十二侵": "啼、沉",
+    "reason": "absent from the upstream tables; restored from the standard rhyme books"
+  },
+  "ci_names": [
+    "忆江南",
+    "如梦令",
+    "相见欢",
+    "生查子",
+    "点绛唇",
+    "浣溪沙",
+    "菩萨蛮",
+    "卜算子",
+    "采桑子",
+    "清平乐",
+    "鹧鸪天",
+    "虞美人",
+    "南乡子",
+    "临江仙",
+    "蝶恋花",
+    "渔家傲",
+    "江城子",
+    "定风波",
+    "苏幕遮",
+    "青玉案",
+    "醉花阴",
+    "声声慢",
+    "念奴娇",
+    "水调歌头",
+    "满江红",
+    "雨霖铃",
+    "扬州慢"
+  ]
+}

@@ -2,7 +2,7 @@
 
 **中文诗律词律引擎。** 把平仄、押韵、粘对、孤平、三平调、词牌字数与韵脚，变成可运行、可测试、可嵌入的 MoonBit 库与命令行工具。
 
-- CLI：`check`（逐字校验）· `plan`（生成平仄谱）· `rhyme`（查韵书）· `identify`（认词牌）
+- CLI：`check`（逐字校验）· `plan`（生成平仄谱）· `rhyme`（查韵书）· `identify`（认词牌）· `list`（按关键词查词牌与韵部）
 - 数据：平水韵 106 部 / 8,239 字；词林正韵 19 部；817 个词牌 / 1,275 种格式（每牌最多 2 体）
 - 许可：代码 Apache-2.0；韵书数据 MIT（来源与补录见 [`data/README.md`](data/README.md)）
 
@@ -28,6 +28,7 @@ moon run cmd/main -- check examples/rumengling.txt --ci 如梦令
 moon run cmd/main -- check examples/broken_tone.txt --json
 moon run cmd/main -- plan 七律 --variant 2
 moon run cmd/main -- rhyme 上平十灰 --tone 平
+moon run cmd/main -- list 花        # 按关键词查词牌，现收 817 个
 ```
 
 输出示例（《登高》，节选）：

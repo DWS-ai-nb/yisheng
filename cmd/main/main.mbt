@@ -1,6 +1,6 @@
 ///|
 /// yisheng command line: check / plan / rhyme / identify / list.
-const VERSION : String = "0.1.0"
+const VERSION : String = "0.2.1"
 
 ///|
 fn usage() -> Unit {
@@ -17,7 +17,7 @@ fn usage() -> Unit {
     "  yisheng rhyme <韵部|字> [--system pingshui|cilin] [--tone 平|仄]",
   )
   println("  yisheng identify <file|--text>")
-  println("  yisheng list")
+  println("  yisheng list [词牌名关键词]")
   println("  yisheng version")
   println("")
   println("示例：")
@@ -552,30 +552,66 @@ fn cmd_identify(lex : @yisheng.Lexicon, argv : Array[String]) -> Unit {
 }
 
 ///|
-fn cmd_list(lex : @yisheng.Lexicon) -> Unit {
-  println("诗体：五绝、七绝、五律、七律")
-  println("")
-  let names = @yisheng.builtin_tune_names(lex)
-  println("内置词牌（" + names.length().to_string() + "）：")
+fn print_wrapped(items : Array[String], per_line : Int32) -> Unit {
   let sb = StringBuilder()
-  for i in 0..<names.length() {
-    if i > 0 {
+  let mut count = 0
+  for i in 0..<items.length() {
+    if count > 0 {
       sb.write_string("、")
     }
-    sb.write_string(names[i])
+    sb.write_string(items[i])
+    count = count + 1
+    if count == per_line {
+      println("  " + sb.to_string())
+      let _ = sb.reset()
+      count = 0
+    }
   }
-  println("  " + sb.to_string())
+  if count > 0 {
+    println("  " + sb.to_string())
+  }
+}
+
+///|
+fn cmd_list(lex : @yisheng.Lexicon, argv : Array[String]) -> Unit {
+  let keyword = match find_flag(argv, "--ci") {
+    Some(k) => k
+    None => {
+      let pos = positionals(argv)
+      if pos.length() > 0 {
+        pos[0]
+      } else {
+        ""
+      }
+    }
+  }
+  println("诗体：五绝、七绝、五律、七律")
+  println("")
+  let all_names = @yisheng.builtin_tune_names(lex)
+  let names : Array[String] = []
+  for n in all_names {
+    if keyword == "" || n.contains(keyword) {
+      names.push(n)
+    }
+  }
+  if keyword == "" {
+    println("内置词牌（" + all_names.length().to_string() + "）：")
+  } else {
+    println(
+      "匹配「" +
+      keyword +
+      "」的词牌（" +
+      names.length().to_string() +
+      "/" +
+      all_names.length().to_string() +
+      "）：",
+    )
+  }
+  print_wrapped(names, 8)
   println("")
   let groups = @yisheng.group_names(lex, @yisheng.Pingshui)
   println("平水韵部（" + groups.length().to_string() + "）：")
-  let gsb = StringBuilder()
-  for i in 0..<groups.length() {
-    if i > 0 {
-      gsb.write_string("、")
-    }
-    gsb.write_string(groups[i])
-  }
-  println("  " + gsb.to_string())
+  print_wrapped(groups, 8)
 }
 
 ///|
@@ -612,6 +648,6 @@ fn main {
   } else if cmd == "identify" {
     cmd_identify(lex, argv)
   } else if cmd == "list" {
-    cmd_list(lex)
+    cmd_list(lex, argv)
   }
 }

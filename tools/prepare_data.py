@@ -7,8 +7,8 @@ upstream JSON files into .cache/ (gitignored), validates them, and writes:
 
   data/pingshui.tsv   one line per Pingshui rhyme group
   data/cilin.tsv      one line per Cilin rhyme group and tone class
-  data/citunes.tsv    curated ci-pattern table, one line per format
-  data/generated/data.mbt  the same tables as MoonBit string constants
+  data/citunes.tsv    ci-pattern table for every upstream tune, up to two formats each
+  data_generated.mbt  the same tables as MoonBit string constants
 
 Only the compact tables are committed; the 19 MB upstream Ci_Tunes.json is not.
 """

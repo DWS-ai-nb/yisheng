@@ -21,6 +21,7 @@ test "如梦令 李清照 passes" {
     }
   }
   assert_true(r.ok)
+  assert_true(r.rhyme.contains("第四部"))
 }
 
 ///|

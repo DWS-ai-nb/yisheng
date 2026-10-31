@@ -37,7 +37,7 @@ jobs:
       - name: CLI JSON is machine readable
         run: |
           moon run cmd/main -- check examples/rumengling.txt --ci 如梦令 --json \
-            | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["ok"] is True; assert d["notes"]'
+            | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["ok"] is True; assert d["notes"]; assert d["rhyme"]'
 
       - name: CLI rejects a broken poem with exit code 1
         run: |

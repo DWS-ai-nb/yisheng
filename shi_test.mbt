@@ -206,3 +206,23 @@ test "unknown first rhyme does not crash" {
   }
   assert_true(warned)
 }
+
+///|
+test "student example reports both errors in one run" {
+  let lex = @yisheng.Lexicon::builtin()
+  let text = "朝辞白云彩云间，千里江陵一日还。两岸猿声啼不住，轻舟已过万重天。"
+  let r = @yisheng.check_shi(lex, text, None)
+  assert_false(r.ok)
+  let mut tone = false
+  let mut rhyme = false
+  for i in r.issues {
+    if i.code == "SHI_TONE" && i.line == 1 && i.col == 4 {
+      tone = true
+    }
+    if i.code == "RHYME_MISMATCH" && i.line == 4 && i.col == 7 {
+      rhyme = true
+    }
+  }
+  assert_true(tone)
+  assert_true(rhyme)
+}

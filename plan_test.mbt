@@ -48,3 +48,17 @@ test "every builtin ci format is well formed" {
     assert_true(t.rhymes.length() > 0)
   }
 }
+
+///|
+test "variant 2 plan matches the 登高 form" {
+  let plan = @yisheng.plan_shi(@yisheng.QiLv, 2)
+  assert_eq(plan.lines.length(), 8)
+  assert_true(plan.title.contains("仄起首句入韵"))
+  let mut rhymes = 0
+  for line in plan.lines {
+    if line.contains("韵") {
+      rhymes = rhymes + 1
+    }
+  }
+  assert_eq(rhymes, 5)
+}

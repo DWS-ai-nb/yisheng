@@ -1,0 +1,45 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: Versions
+        run: |
+          moon version
+          python3 --version
+
+      - name: Check and test
+        run: |
+          moon check
+          moon test
+
+      - name: Build wasm-gc
+        run: moon build --target wasm-gc
+
+      - name: CLI accepts a canonical poem
+        run: moon run cmd/main -- check examples/denggao.txt
+
+      - name: CLI JSON is machine readable
+        run: |
+          moon run cmd/main -- check examples/rumengling.txt --ci 如梦令 --json \
+            | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["ok"] is True; assert d["notes"]'
+
+      - name: CLI rejects a broken poem with exit code 1
+        run: |
+          set +e
+          moon run cmd/main -- check examples/student_qijue.txt
+          code=$?
+          set -e
+          test "$code" -eq 1

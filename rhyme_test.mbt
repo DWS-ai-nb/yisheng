@@ -1,7 +1,8 @@
 ///|
 test "lexicon counts and basic readings" {
   let lex = @yisheng.Lexicon::builtin()
-  assert_eq(lex.tunes.length(), 78)
+  assert_true(lex.tunes.length() > 1000)
+  assert_eq(@yisheng.builtin_tune_names(lex).length(), 817)
   let dong = @yisheng.lookup(lex, Pingshui, '东')
   assert_true(dong.length() > 0)
   assert_eq(dong[0].group, "上平一东")

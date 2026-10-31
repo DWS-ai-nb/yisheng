@@ -26,13 +26,8 @@ COMMIT = "ff0e9c13fb037c43e0eaa5dc929c0fe4fa2ffb18"
 BASE = f"https://raw.githubusercontent.com/{REPO}/{COMMIT}/data"
 FILES = ["Pingshui_Rhyme.json", "Cilin_Rhyme.json", "Ci_Tunes.json"]
 
-CI_NAMES = [
-    "忆江南", "如梦令", "相见欢", "生查子", "点绛唇", "浣溪沙", "菩萨蛮",
-    "卜算子", "采桑子", "清平乐", "鹧鸪天", "虞美人", "南乡子", "临江仙",
-    "蝶恋花", "渔家傲", "江城子", "定风波", "苏幕遮", "青玉案", "醉花阴",
-    "声声慢", "念奴娇", "水调歌头", "满江红", "雨霖铃", "扬州慢",
-]
-MAX_FORMATS = 3
+# All tune names are included; each keeps at most MAX_FORMATS formats.
+MAX_FORMATS = 2
 
 # The upstream Pingshui table omits 上声三讲 (its source page lost the group).
 # These five common characters are restored from the standard Pingshui table
@@ -132,7 +127,7 @@ def cilin() -> list[tuple[str, str, str]]:
 def citunes() -> list[tuple[str, str, str, str, str]]:
     raw = json.loads(fetch("Ci_Tunes.json"))
     rows = []
-    for name in CI_NAMES:
+    for name in sorted(raw.keys()):
         entry = raw.get(name)
         if not entry:
             raise SystemExit(f"missing ci tune: {name}")
@@ -233,7 +228,6 @@ def main():
             "pingshui:上平八齐/下平十二侵": "啼、沉",
             "reason": "absent from the upstream tables; restored from the standard rhyme books",
         },
-        "ci_names": CI_NAMES,
     }
     (DATA / "manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

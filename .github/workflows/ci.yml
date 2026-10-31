@@ -25,7 +25,7 @@ jobs:
 
       - name: Check and test
         run: |
-          moon check
+          moon check --deny-warn
           moon test
 
       - name: Build wasm-gc
@@ -38,6 +38,16 @@ jobs:
         run: |
           moon run cmd/main -- check examples/rumengling.txt --ci 如梦令 --json \
             | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["ok"] is True; assert d["notes"]; assert d["rhyme"]'
+
+      - name: CLI version matches moon.mod
+        run: |
+          declared=$(grep '^version' moon.mod | sed 's/.*"\(.*\)".*/\1/')
+          printed=$(moon run cmd/main -- version)
+          echo "moon.mod=$declared cli=$printed"
+          test "$printed" = "yisheng $declared"
+
+      - name: CLI lists tunes by keyword
+        run: moon run cmd/main -- list 花 | grep -q 蝶恋花
 
       - name: CLI rejects a broken poem with exit code 1
         run: |
